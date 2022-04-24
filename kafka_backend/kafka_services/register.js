@@ -17,10 +17,10 @@ const register = async (msg,callback) => {
                 callback(null,response);
             }
 
-            const encryptedPassword = await encrypt.cryptPassword(password);
-            userRegObj.password = encryptedPassword;
-            userRegObj.country = "623bc75595f732ed8d44697a";
-            userRegObj.currency = "623bc6d795f732ed8d446943";
+            //const encryptedPassword = await encrypt.cryptPassword(password);
+            //userRegObj.password = encryptedPassword;
+            userRegObj.country = "625cf6825a6ad90acd96748c";
+            userRegObj.currency = "625cfa468cfa054b7b0e1ffc";
             userRegObj.profilePicture = "3d07ffec355de8f5d8a483d2085b4a4e";
             const result = await User.addUser(userRegObj);
             delete userRegObj.password;

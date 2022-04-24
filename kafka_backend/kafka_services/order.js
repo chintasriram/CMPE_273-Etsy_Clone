@@ -1,13 +1,16 @@
-const { Currency } = require("../mongo_services/currency");
+const { Order } = require("../mongo_services/order");
 
-const getAllCurrencies = async (msg,callback) => {
+const getUserOrders = async (msg,callback) => {
     const response = {};
     const data = {};
-    console.log(msg)
+    data.userId = msg.userId;
+    data.skip = msg.skip;
+    data.limit = msg.limit;
     try{
-        const currencies = await Currency.getCurrencies(data);
-        response.currencies = currencies;
+        const items = await Order.getOrderItems(data);
+        response.items = items.orders;
         response.success = true;
+        response.moreAvailable = items.moreAvailable;
         response.status = 200;
         callback(null,response);
     }catch(e){
@@ -19,13 +22,13 @@ const getAllCurrencies = async (msg,callback) => {
     }
 }
 
-const getSpecificCurrency = async (msg,callback) => {
+
+const placeOrder = async (msg,callback) => {
     const response = {};
-    const data = {};
-    data.currencyId = msg.currencyId;
+    const data = msg.body;
     try{
-        const currency = await Currency.getCurrency(data);
-        response.currency = currency;
+        const result = await Order.placeOrder(data);
+        response.result = result;
         response.success = true;
         response.status = 200;
         callback(null,response);
@@ -39,11 +42,10 @@ const getSpecificCurrency = async (msg,callback) => {
 }
 
 function handle_request(msg, callback) {
-  console.log(msg);
-  if (msg.path === "get_all_currency") {
-    getAllCurrencies(msg, callback);
-  }else if (msg.path === "get_specific_currency") {
-    getSpecificCurrency(msg, callback);
+  if (msg.path === "get_user_orders") {
+    getUserOrders(msg, callback);
+  }else if(msg.path === "place_order"){
+    placeOrder(msg, callback);
   }
 }
 

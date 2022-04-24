@@ -7,12 +7,14 @@ const login = async (msg,callback) => {
     const {email,password} = msg.body;
     const userObj = {email,password};
     const response = {};
+
     if(userObj.email && userObj.password){
         try{
-            const exists = await User.checkExists(userObj);
+            const exists =  await User.checkExists(userObj);
+
             if(exists && exists.userFound){
-                const passwordMatch = await encrypt.comparePassword(userObj.password, exists.user.password);
-                if(passwordMatch){
+                //const passwordMatch = await encrypt.comparePassword(userObj.password, exists.user.password);
+                if(userObj.password == exists.user.password){
                     const user = JSON.parse(JSON.stringify(exists.user));
                     delete userObj.password;
                     delete user.password;

@@ -1,6 +1,8 @@
 
 var mongoose = require('mongoose');
 const FavoriteItemModel = require('../mongo_models/favoriteitem.js');
+const ItemModel = require('../mongo_models/item.js');
+
 
 
 class FavoriteItem{
@@ -10,6 +12,8 @@ class FavoriteItem{
             const query = {
                 "user": mongoose.Types.ObjectId(userId)
             };
+            console.log(query)
+
             let items = await FavoriteItemModel.find(query).populate('item');
             if(items?.length){
                 return items;

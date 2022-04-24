@@ -1,12 +1,11 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const config =  require('config');
-//const { Item } = require("../models/item");
-const encrypt = require("../services/encrypt");
-const auth = require("../middleware/auth");
-const router = express.Router();
 const { Item } = require("../mongo/services/item.js");
-
+const encrypt = require("../services/encrypt");
+const router = express.Router();
+const passport = require('passport');
+const auth = require("../middleware/auth");
 
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
@@ -42,7 +41,7 @@ router.get('/display-picture/:key', (req, res) => {
   }
 });
 
-router.get("/:itemId/:userId",  async (req, res) => {
+router.get("/:itemId/:userId", auth, async (req, res) => {
     const response = {};
     const data = {};
     data.itemId = req.params.itemId;
@@ -121,7 +120,6 @@ router.post("/other", auth, async (req, res) => {
 router.post("/other/filter", auth, async (req, res) => {
     const response = {};
     const data = req.body;
-    console.log(data);
     try{
         const itemsResult = await Item.getOtherFilteredItems(data);
         response.items = itemsResult;

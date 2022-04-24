@@ -3,6 +3,7 @@ const OrderModel = require('../mongo_models/order.js');
 const OrderItemModel = require('../mongo_models/orderitem.js');
 const CartModel = require('../mongo_models/cart.js');
 const ItemModel = require('../mongo_models/item.js');
+const ShopModel = require('../mongo_models/shop.js');
 
 
 class Order{
@@ -12,8 +13,11 @@ class Order{
             const query = {
                 "user": mongoose.Types.ObjectId(userId)
             };
+            const orderSortQuery = {
+                createdDate:-1
+            }
             let moreAvailable = false;
-            let orders = await OrderModel.find(query).skip(skip).limit(parseInt(limit)+1);
+            let orders = await OrderModel.find(query).skip(skip).limit(parseInt(limit)+1).sort(orderSortQuery);
             orders = JSON.parse(JSON.stringify(orders));
             const response = {};
             if(orders?.length){
@@ -46,17 +50,28 @@ class Order{
                     if (month < 10) {
                     month = '0' + month;
                     }
-                    eachItem.date = month+"/"+dt+"/"+year;
+                    eachItem.dateFormatted = month+"/"+dt+"/"+year;
                 });
                 const groupedOrders = {};
                 orderItems.forEach((eachItem)=>{
-                    if(eachItem.id in orders){
-                        groupedOrders[eachItem.id].push(eachItem);
+                    if(eachItem.order in groupedOrders){
+                        groupedOrders[eachItem.order].push(eachItem);
                     }else{
-                        groupedOrders[eachItem.id] = [eachItem];
+                        groupedOrders[eachItem.order] = [eachItem];
                     }
                 });
-                response.orders = groupedOrders;
+                let sortedGroupedOrders = [];
+                for (var orderId in groupedOrders) {
+                    sortedGroupedOrders.push([orderId, groupedOrders[orderId]]);
+                }
+
+                sortedGroupedOrders.sort(function(a, b) {
+                     console.log(new Date(b[1][0].date));
+                     return new Date(b[1][0].date) - new Date(a[1][0].date);
+                });
+
+              
+                response.orders = sortedGroupedOrders;
                 response.moreAvailable = moreAvailable;
                 return response;
             }else{

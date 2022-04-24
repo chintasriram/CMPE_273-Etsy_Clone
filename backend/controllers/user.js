@@ -1,18 +1,17 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const config =  require('config');
-//const { User } = require("../models/user");
-const auth = require("../middleware/auth");
 const { User } = require("../mongo/services/user.js");
-
+const passport = require('passport');
 const router = express.Router();
+const auth = require("../middleware/auth");
 
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 
 const { uploadFile, getFileStream } = require('../services/s3');
 
-router.get("/:id", auth, async (req, res) => {
+router.get("/:id",auth, async (req, res) => {
     const id = req.params.id;
     const user = {id};
     const response = {};

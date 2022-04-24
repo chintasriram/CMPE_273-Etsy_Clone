@@ -108,7 +108,7 @@ const HomeItem = ({item,items,setItems,index,currency}) => {
 
                         <div className="row">
                         {!item.favorite && <div><Button className='changeColor' onClick={addFavoriteItem}>add to fav </Button></div>}
-                           {item.favorite && <div><Button onClick={removeFavoriteItem}> remove from fav</Button></div>}
+                           {item.favorite && <div><Button className='changeColor' onClick={removeFavoriteItem}> remove from fav</Button></div>}
                         </div>
                     </Card.Title>
                     <Card.Text>

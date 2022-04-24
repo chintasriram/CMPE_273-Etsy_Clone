@@ -21,17 +21,21 @@ const OrderItem = ({item, currency}) => {
         <div>
             <div className="container orderitem-container">
                 <div className="row">
-                    <div className="col-md-2">
+                    <div className="col-md-5">
                         <div><img src={GET_ITEM_DISPLAY_PIC_API+item.displayPicture} className="orderitem_display_picture"></img></div>
                     </div>
-                    <div className="col-md-9">
+                    <div className="col-md-4">
                         <div>
                             <span className="overview-name">{item.name}</span>
                         </div>
                         <div>{"Price: "+currency.name+" "+item.price*item.orderQuantity+" ("+currency.name+" "+item.price+" per piece)"}</div>
                         <div>{"Shop Name: "+item.shopName}</div>
                         <div>{"Quantity: "+item.orderQuantity}</div>
-                        <div>{"Date: "+item.date}</div>
+                        {/*<div>{"Date: "+item.date}</div>*/}
+                        {item.gift==='true' && <div className="add-border">
+                            <div>{item.gift==='true' ? "This item was a gift!":"" }</div>
+                            <div>{item.gift==='true' ? "Gift Message: "+item.cartDescription : ""}</div>
+                        </div>}
                         <div className="homeitem_sales_count">{item.orderId}</div>
                     </div>
                 </div>

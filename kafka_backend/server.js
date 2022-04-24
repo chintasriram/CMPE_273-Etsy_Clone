@@ -5,10 +5,14 @@ var Login = require('./kafka_services/login.js');
 var Register = require('./kafka_services/register.js');
 var Country = require('./kafka_services/country.js');
 var Category = require('./kafka_services/category.js');
+var Currency = require('./kafka_services/currency.js');
+var FavoriteItem = require('./kafka_services/favoriteitem.js');
+var Order = require('./kafka_services/order.js');
+
 
 
 const mongoose = require('mongoose');
-const mongoDB = require('../backend/config');
+const mongoDB = require('./config');
 
 var options = {
     useNewUrlParser: true,
@@ -64,6 +68,11 @@ handleTopicRequest("login",Login);
 handleTopicRequest("register",Register);
 handleTopicRequest("country",Country);
 handleTopicRequest("category",Category);
+handleTopicRequest("currency",Currency);
+handleTopicRequest("favoriteitem",FavoriteItem);
+handleTopicRequest("order",Order);
+
+
 
 
 
