@@ -22,6 +22,7 @@ const OrderItem = ({item, currency}) => {
             <div className="container orderitem-container">
                 <div className="row">
                     <div className="col-md-5">
+                    {console.log(item)}
                         <div><img src={GET_ITEM_DISPLAY_PIC_API+item.displayPicture} className="orderitem_display_picture"></img></div>
                     </div>
                     <div className="col-md-4">
