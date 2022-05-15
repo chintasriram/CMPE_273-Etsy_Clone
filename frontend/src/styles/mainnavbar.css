@@ -1,0 +1,24 @@
+.mainnavbar-title {
+  color: #b64811 !important;
+  font-weight: bold !important;
+  font-size: 2rem;
+  font-family: "Times New Roman", -apple-system, "Helvetica Neue", "Droid Sans",
+    Arial, sans-serif;
+}
+
+.mainnavbar-search-1 {
+  /*border-radius: 50px;*/
+  border: 2px solid rgb(44, 38, 38);
+}
+
+.mainnavbar-search-2 {
+  /*border-radius: 50px;*/
+  border: 2px solid rgb(110, 56, 56);
+  border-left: 0px solid;
+  background: white;
+  cursor: pointer;
+}
+
+.changeColor{
+  background-color: rgb(156, 73, 14);
+}
