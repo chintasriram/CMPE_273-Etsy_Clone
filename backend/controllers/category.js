@@ -10,6 +10,7 @@ const kafka = require("../kafka/client");
 
 
 
+
 router.get("/:userId",  auth, async (req, res) => {
     const msg = {};
     msg.userId = req.params.userId;
