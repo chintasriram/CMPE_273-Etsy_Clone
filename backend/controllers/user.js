@@ -1,16 +1,17 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const config =  require('config');
-const { User } = require("../services/user");
+const { User } = require("../mongo/services/user");
 const passport = require('passport');
 const router = express.Router();
+const auth = require("../middleware/auth");
 
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 
 const { uploadFile, getFileStream } = require('../services/s3');
 
-router.get("/:id", passport.authenticate('jwt', { session: false }), async (req, res) => {
+router.get("/:id", auth, async (req, res) => {
     const id = req.params.id;
     const user = {id};
     const response = {};
@@ -36,7 +37,7 @@ router.get("/:id", passport.authenticate('jwt', { session: false }), async (req,
     }
 });
 
-router.put("/:id", passport.authenticate('jwt', { session: false }), async (req, res) => {
+router.put("/:id", auth, async (req, res) => {
     const id = req.params.id;
     const user = req.body;
     const response = {};
@@ -63,7 +64,7 @@ router.put("/:id", passport.authenticate('jwt', { session: false }), async (req,
     }
 });
 
-router.post("/currency/update", passport.authenticate('jwt', { session: false }), async (req, res) => {
+router.post("/currency/update", auth, async (req, res) => {
     const data = req.body;
     const response = {};
     try{
@@ -101,7 +102,7 @@ router.get('/profile-picture/:key', (req, res) => {
   }
 });
 
-router.post("/profile-picture/upload", passport.authenticate('jwt', { session: false }), upload.single("image"),async (req, res) => {
+router.post("/profile-picture/upload", auth, upload.single("image"),async (req, res) => {
     const file = req.file;
     const response = {};
     try{

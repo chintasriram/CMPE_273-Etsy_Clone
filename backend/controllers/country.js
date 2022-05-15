@@ -1,12 +1,13 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const config =  require('config');
-const { Country } = require("../services/country");
+const { Country } = require("../mongo/services/country");
 const encrypt = require("../services/encrypt");
 const router = express.Router();
 const passport = require('passport');
+const auth = require("../middleware/auth");
 
-router.get("/", passport.authenticate('jwt', { session: false }), async (req, res) => {
+router.get("/", auth, async (req, res) => {
     const response = {};
     try{
         const countries = await Country.getCountries();

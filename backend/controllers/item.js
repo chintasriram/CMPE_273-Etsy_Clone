@@ -1,17 +1,18 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const config =  require('config');
-const { Item } = require("../services/item");
+const { Item } = require("../mongo/services/item");
 const encrypt = require("../services/encrypt");
 const router = express.Router();
 const passport = require('passport');
+const auth = require("../middleware/auth");
 
 const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 
 const { uploadFile, getFileStream } = require('../services/s3');
 
-router.get("shop/:shopId", passport.authenticate('jwt', { session: false }), async (req, res) => {
+router.get("shop/:shopId", auth, async (req, res) => {
     const response = {};
     const data = {};
     data.shopId = req.params.shopId;
@@ -40,7 +41,7 @@ router.get('/display-picture/:key', (req, res) => {
   }
 });
 
-router.get("/:itemId/:userId", passport.authenticate('jwt', { session: false }), async (req, res) => {
+router.get("/:itemId/:userId", auth, async (req, res) => {
     const response = {};
     const data = {};
     data.itemId = req.params.itemId;
@@ -60,7 +61,7 @@ router.get("/:itemId/:userId", passport.authenticate('jwt', { session: false }),
     }
 });
 
-router.post("/add", passport.authenticate('jwt', { session: false }), async (req, res) => {
+router.post("/add", auth, async (req, res) => {
     const response = {};
     const data = {};
     const item = req.body;
@@ -79,7 +80,7 @@ router.post("/add", passport.authenticate('jwt', { session: false }), async (req
     }
 });
 
-router.post("/edit", passport.authenticate('jwt', { session: false }), async (req, res) => {
+router.post("/edit", auth, async (req, res) => {
     const response = {};
     const data = {};
     const item = req.body;
@@ -98,7 +99,7 @@ router.post("/edit", passport.authenticate('jwt', { session: false }), async (re
     }
 });
 
-router.post("/other", passport.authenticate('jwt', { session: false }), async (req, res) => {
+router.post("/other", auth, async (req, res) => {
     const response = {};
     const data = req.body;
     try{
@@ -116,7 +117,7 @@ router.post("/other", passport.authenticate('jwt', { session: false }), async (r
     }
 });
 
-router.post("/other/filter", passport.authenticate('jwt', { session: false }), async (req, res) => {
+router.post("/other/filter", auth, async (req, res) => {
     const response = {};
     const data = req.body;
     try{
@@ -135,7 +136,7 @@ router.post("/other/filter", passport.authenticate('jwt', { session: false }), a
 });
 
 
-router.post("/display-picture/upload", passport.authenticate('jwt', { session: false }), upload.single("image"),async (req, res) => {
+router.post("/display-picture/upload", auth, upload.single("image"),async (req, res) => {
     const file = req.file;
     const response = {};
     try{

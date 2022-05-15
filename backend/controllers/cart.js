@@ -1,13 +1,15 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const config =  require('config');
-const { Cart } = require("../services/cart");
+const { Cart } = require("../mongo/services/cart.js");
 const encrypt = require("../services/encrypt");
 const router = express.Router();
 const passport = require('passport');
+const auth = require("../middleware/auth");
 
 
-router.post("/add", passport.authenticate('jwt', { session: false }), async (req, res) => {
+
+router.post("/add", auth, async (req, res) => {
     const response = {};
     const data = {};
     const item = req.body;
@@ -34,7 +36,7 @@ router.post("/add", passport.authenticate('jwt', { session: false }), async (req
     }
 });
 
-router.post("/delete", passport.authenticate('jwt', { session: false }), async (req, res) => {
+router.post("/delete", auth, async (req, res) => {
     const response = {};
     const data = {};
     const item = req.body;
@@ -53,7 +55,7 @@ router.post("/delete", passport.authenticate('jwt', { session: false }), async (
     }
 });
 
-router.get("/get/:userId", passport.authenticate('jwt', { session: false }), async (req, res) => {
+router.get("/get/:userId", auth, async (req, res) => {
     const response = {};
     const data = {};
     data.userId = req.params.userId;
@@ -72,7 +74,7 @@ router.get("/get/:userId", passport.authenticate('jwt', { session: false }), asy
     }
 });
 
-router.post("/item/quantity", passport.authenticate('jwt', { session: false }), async (req, res) => {
+router.post("/item/quantity", auth, async (req, res) => {
     const response = {};
     const data = req.body;
     try{
@@ -90,7 +92,7 @@ router.post("/item/quantity", passport.authenticate('jwt', { session: false }), 
     }
 });
 
-router.post("/item/gift", passport.authenticate('jwt', { session: false }), async (req, res) => {
+router.post("/item/gift", auth, async (req, res) => {
     const response = {};
     const data = req.body;
     try{

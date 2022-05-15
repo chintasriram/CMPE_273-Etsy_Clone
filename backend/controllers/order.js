@@ -1,12 +1,13 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const config =  require('config');
-const { Order } = require("../services/order");
+const { Order } = require("../mongo/services/order");
 const encrypt = require("../services/encrypt");
 const router = express.Router();
 const passport = require('passport');
+const auth = require("../middleware/auth");
 
-router.post("/get/:userId", passport.authenticate('jwt', { session: false }), async (req, res) => {
+router.post("/get/:userId", auth, async (req, res) => {
     const response = {};
     const data = {};
     data.userId = req.params.userId;
@@ -28,7 +29,7 @@ router.post("/get/:userId", passport.authenticate('jwt', { session: false }), as
     }
 });
 
-router.post("/place", passport.authenticate('jwt', { session: false }), async (req, res) => {
+router.post("/place", auth, async (req, res) => {
     const response = {};
     const data = req.body;
     try{

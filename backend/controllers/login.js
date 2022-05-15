@@ -4,8 +4,9 @@ const config =  require('config');
 const { 
   v4: uuidv4,
 } = require('uuid');
-const { User } = require("../services/user");
+const { User } = require("../mongo/services/user");
 const encrypt = require("../services/encrypt");
+const auth = require("../middleware/auth");
 
 const router = express.Router();
 

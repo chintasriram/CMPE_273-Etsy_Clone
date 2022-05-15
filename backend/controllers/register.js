@@ -1,9 +1,10 @@
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const config =  require('config');
-const { User } = require("../services/user");
+const { User } = require("../mongo/services/user");
 const encrypt = require("../services/encrypt");
 const passport = require('passport');
+const auth = require("../middleware/auth");
 
 const router = express.Router();
 

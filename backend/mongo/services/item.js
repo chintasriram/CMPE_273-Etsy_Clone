@@ -30,10 +30,14 @@ class Item{
             let item = await ItemModel.findOne(query).populate('shop').populate('category');
             item = JSON.parse(JSON.stringify(item)); 
             if(item){
+                console.log(itemId,userId)
+
                 const favItemQuery = {
                     "item": mongoose.Types.ObjectId(itemId),
                     "user": mongoose.Types.ObjectId(userId)
                 };  
+                console.log(favItemQuery)
+
                 const favoriteItem = await FavoriteItemModel.findOne(favItemQuery);
                 if(favoriteItem && Object.keys(favoriteItem)?.length){
                  item.favorite = true;   
