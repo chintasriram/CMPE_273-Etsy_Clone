@@ -148,7 +148,7 @@ const ShopHome = () => {
                                 {shop && shop.owner.phone}
                             </div>
                             {editRights && <div className="viewprofile_useremail col-md-12 col-sm-12">
-                                {"Total Sales: "+(currency && currency.name+" ")+totalSales}
+                                {"Total Sales: Dollar"+totalSales}
                             </div>}
                         </div>
                     </div>
