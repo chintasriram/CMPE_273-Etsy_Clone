@@ -36,8 +36,9 @@ const ConnectedMainNavBar = ({searchQuery, getOtherFilterItems, setSearchQuery,r
             navigate(LOGIN_PAGE, {replace:true});
         }else{
             try{
-                const response = await authapi.get(USER_SHOP_API+user.id);
-                console.log(response, response.data)
+                console.log(user)
+
+                const response = await authapi.get(USER_SHOP_API+user._id);
                 if(response && response.data){
                     if(response.data.success){
                         if(response.data.shopFound){

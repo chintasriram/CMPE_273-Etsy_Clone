@@ -16,7 +16,9 @@ const order = require("./controllers/order");
 const favoriteitem = require("./controllers/favoriteitem");
 const currency = require("./controllers/currency");
 const mongoDB = require('./config');
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const {graphqlHTTP} = require('express-graphql');
+const schema = require('./schema/schema');
 
 const app = express();
 
@@ -43,6 +45,10 @@ app.listen(3001, ()=>{
     console.log('Example app listening on port 3001');
 })
 
+app.use("/graphql",graphqlHTTP({
+    schema,
+    graphiql: true
+  }));
 
 app.use('/api/register',register);
 app.use('/api/login',login);

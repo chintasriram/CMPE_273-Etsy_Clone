@@ -72,11 +72,9 @@ const ConnectedLogin = ({user,addUser}) => {
             if(response && response.data){
                 if(response.data.success){
                     const user = response.data.user;
+                    console.log(user)
                     if(user){
                         const token = response.data.token;
-                        console.log(token)
-                        console.log("in login.js")
-
                         localStorage.setItem("token",token);
                         delete user.token;
                         localStorage.setItem("user",JSON.stringify(user));

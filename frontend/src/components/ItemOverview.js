@@ -226,6 +226,7 @@ const ItemOverview = ({searchQuery,setSearchQuery,getOtherFilterItems,setItems,g
                             {item.favorite && <span className="homeitem-favorite-icon"><FontAwesomeIcon onClick={removeFavoriteItem} color="red" icon={faHeartSolid}/></span>}
                             {!item.favorite && <span className="homeitem-favorite-icon"><FontAwesomeIcon onClick={addFavoriteItem} color="red" icon={faHeartRegular}/></span>}
                         </div>
+                        {console.log(item.shop)}
                         <Link className="overview-shop" to={SHOP_HOME_PAGE+item.shop.id}>{item.shop.name}</Link>
                         <div data-testid="itemoverview-name">{item.categoryname}</div>
                         <div data-testid="itemoverview-price">{currency.name+" "+item.price}</div>
