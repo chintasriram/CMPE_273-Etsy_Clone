@@ -6,13 +6,15 @@ query($email: String,$password: String) {
     _id
     name
     email
-    name
     profilePicture
     phone
     currency
-    timezone
-    language
-    error
+    country
+    city
+    address
+    about
+    currency
+    gender
   }
 }
 `;
