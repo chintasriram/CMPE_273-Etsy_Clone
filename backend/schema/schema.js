@@ -169,9 +169,26 @@ const Mutation = new GraphQLObjectType({
           salesCount: { type: GraphQLInt },
           shopId: { type: GraphQLString }
       },
-      resolve: async (parent, args) => {
-          const itemResult= await Item.addItem(args);
-          return itemResult;
+      resolve (parent, args){
+        const query = {
+          name: args.email,
+          displayPicture: args.name,
+          category: args.password,
+          description: args.description,
+          price: args.price,
+          quantity: args.quantity,
+          salesCount: args.salesCount,
+          shopId: args.shopId
+      };
+      const item = new ItemModel(query);
+      const result = item.save();
+      let res = {};
+      if(result){
+          res = result;
+      }else{
+          res.error = "Error occured";
+      }
+      resolve(res);
       }
   },
   },

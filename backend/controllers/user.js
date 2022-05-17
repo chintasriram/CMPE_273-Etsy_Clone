@@ -41,8 +41,12 @@ router.put("/:id", auth, async (req, res) => {
     const id = req.params.id;
     const user = req.body;
     const response = {};
+
     try{
         const updatedResult = await User.editUser(user);
+        console.log(user)
+
+
         if(updatedResult && updatedResult.userEdited){
             const findResult = await User.getUserById(user);
             response.success = true;
