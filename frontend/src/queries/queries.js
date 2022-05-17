@@ -1,4 +1,4 @@
-import { gql } from 'apollo-boost';
+import { gql } from '@apollo/client';
 
 const loginQuery = gql`
 query($email: String,$password: String) {
@@ -17,64 +17,61 @@ query($email: String,$password: String) {
 }
 `;
 
-const fetchGroupsQuery = gql`
-query($user_id: String) {
-  fetchGroups(user_id:$user_id)
+const countriesQuery = gql`
+query{
+  getAllCountries{
+    _id
+    name
+  }
 }
 `;
 
-const fetchUsersQuery = gql`
+const currencyQuery = gql`
 query{
-  fetchUsers{
-    name
-    email
+  getAllCurrencies{
     _id
+    name
   }
-}`;
+}
+`;
 
-
-const getAllExpensesQuery = gql`
-query($group_id: String) {
-  getAllExpenses(group_id:$group_id){
-    group_id
+const getCartItemsQuery = gql`
+query($_id: String){
+  getCartItems(_id: $_id){
+    _id
+    name
+    item
+    orderQuantity
     description
-    paid_by
-    amount
-    created_date
-    updated_date
-    paid_to_users{
-      paid_to
-      amount
-      settled
-      _id
-    }
+    gift
   }
-}`;
+}
+`;
+
+const getOrderItems = gql`
+query($_id: String){
+  getOrderItems(_id: $_id){
+    _id
+    order
+    name
+    displayPicture
+    orderQuantity
+    shopName
+    date
+    item
+    gift
+    cartDescription
+  }
+}
+`;
 
 
-const getAllIndividualExpensesQuery = gql`
-query($group_id: String) {
-  getAllIndividualExpensesQuery(group_id:$group_id){
-    group_id
-    description
-    paid_by
-    amount
-    created_date
-    updated_date
-    paid_to_users{
-      paid_to
-      amount
-      settled
-      _id
-    }
-  }
-}`;
 
 
 export {
   loginQuery,
-  fetchGroupsQuery,
-  fetchUsersQuery,
-  getAllExpensesQuery,
-  getAllIndividualExpensesQuery,
+  countriesQuery,
+  currencyQuery,
+  getCartItemsQuery,
+  getOrderItems,
 };

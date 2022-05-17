@@ -7,6 +7,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import '../styles/register.css';
 import LoadingIcons from 'react-loading-icons';
 import {Link} from 'react-router-dom';
+import { gql, useMutation } from '@apollo/client';
+import { userRegistrationMutation } from '../mutations/mutations.js';
 
 const USER_REGEX = /^[A-z][A-z0-9-_ ]{3,23}$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -107,12 +109,25 @@ const Register = ({}) => {
         }
     }
     
+    // const registerUserGraphQL = async ()=>{
+    //     setRegistering(true);
+    //     registerUserMutationExec({
+    //             variables:{
+    //                 name:name,
+    //                 email:email,
+    //                 password:password
+    //             }
+    //         });
+    // }
     
     const handleUserRegistrationSubmit = (e)=>{
         e.preventDefault();
         if(validName && validEmail && validPassword && validMatchPassword && !registering){
             registerUser();
         }
+        // if(validName && validEmail && validPassword && validMatchPassword && !registering){
+        //     registerUserGraphQL();
+        // }
     }
 
     return (
