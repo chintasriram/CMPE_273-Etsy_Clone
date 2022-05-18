@@ -40,7 +40,7 @@ const UserType = new GraphQLObjectType({
       phone: { type:GraphQLString },
       token: { type:GraphQLString },
   }),
-});
+ });
 
 const CategoryType = new GraphQLObjectType({
   name: 'Category',

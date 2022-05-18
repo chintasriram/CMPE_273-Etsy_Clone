@@ -97,6 +97,7 @@ const Home = () => {
     setGettingCurrency(true);
       try{
           const response = await authapi.get(GET_USER_CURRENCY_API+currency);
+          console.log(response.data.currency)
           if(response && response.data){
               if(response.data.success){
                 setCurrency(response.data.currency);

@@ -24,8 +24,8 @@ router.post("/", async (req, res) => {
 
             const encryptedPassword = await encrypt.cryptPassword(password);
             userRegObj.password = encryptedPassword;
-            userRegObj.country = "623bc75595f732ed8d44697a";
-            userRegObj.currency = "623bc6d795f732ed8d446943";
+            userRegObj.country = "6282b76f046cf0db1fe1a547";
+            userRegObj.currency = "62806d33ebd7f39a16a6703c";
             userRegObj.profilePicture = "3d07ffec355de8f5d8a483d2085b4a4e";
             const result = await User.addUser(userRegObj);
             delete userRegObj.password;

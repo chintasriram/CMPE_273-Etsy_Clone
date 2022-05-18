@@ -39,8 +39,10 @@ const ItemOverview = ({searchQuery,setSearchQuery,getOtherFilterItems,setItems,g
         setItemLoading(true);
         const user = JSON.parse(localStorage.getItem("user"));
         const userId = user.id;
+        console.log(user)
         try{
         const response = await authapi.get(GET_ITEM_API+itemId+"/"+userId);
+        console.log(response.data)
         if(response && response.data){
             if(response.data.success){
                 const item = response.data.item;
@@ -226,7 +228,6 @@ const ItemOverview = ({searchQuery,setSearchQuery,getOtherFilterItems,setItems,g
                             {item.favorite && <span className="homeitem-favorite-icon"><FontAwesomeIcon onClick={removeFavoriteItem} color="red" icon={faHeartSolid}/></span>}
                             {!item.favorite && <span className="homeitem-favorite-icon"><FontAwesomeIcon onClick={addFavoriteItem} color="red" icon={faHeartRegular}/></span>}
                         </div>
-                        {console.log(item.shop)}
                         <Link className="overview-shop" to={SHOP_HOME_PAGE+item.shop.id}>{item.shop.name}</Link>
                         <div data-testid="itemoverview-name">{item.categoryname}</div>
                         <div data-testid="itemoverview-price">{currency.name+" "+item.price}</div>
